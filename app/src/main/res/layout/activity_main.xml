@@ -8,10 +8,59 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.piteravto.rockabilla.checkingvehicles.MainActivity">
+    tools:context="com.piteravto.rockabilla.checkingvehicles.MainActivity"
+    android:background="@android:color/holo_blue_light">
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:gravity="center_horizontal"
+        android:inputType="number"
+        android:background="@null"
+        android:ems="10"
+        android:layout_marginTop="36dp"
+        android:id="@+id/vehicle_id"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:hint="@string/vehicle_id_edit_text"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/continue_button"
+
+        android:text="@string/continue_button"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:background="@drawable/continue_button"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:layout_marginTop="76dp"
+        android:layout_below="@+id/vehicle_id"
+        android:layout_alignRight="@+id/vehicle_id"
+        android:layout_alignEnd="@+id/vehicle_id" />
+
+    <Button
+        android:id="@+id/clear_button"
+
+        android:text="@string/clear_button"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:background="@drawable/clear_button"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:layout_alignBottom="@+id/continue_button"
+        android:layout_alignLeft="@+id/vehicle_id"
+        android:layout_alignStart="@+id/vehicle_id"
+        android:onClick="onClickClearButton"/>
+
 </RelativeLayout>
