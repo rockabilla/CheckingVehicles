@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="server_name">http://tabus.piteravto.ru/</string>
+    <string name="stk">stk</string>
+    <string name="php">stk3.php</string>
+</resources>

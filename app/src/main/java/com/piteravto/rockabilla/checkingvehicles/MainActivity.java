@@ -1,11 +1,25 @@
 package com.piteravto.rockabilla.checkingvehicles;
 
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.piteravto.rockabilla.checkingvehicles.api.ServerApi;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,7 +38,32 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickClearButton(View view) {
         EditText editText = (EditText) findViewById(R.id.vehicle_id);
-
         editText.getText().clear();
+    }
+
+    public void onClickContinueButton(View view) {
+        EditText editText = (EditText) findViewById(R.id.vehicle_id);
+        String vehicleId = editText.getText().toString();
+        Toast.makeText(MainActivity.this, vehicleId, Toast.LENGTH_LONG).show();
+        try {
+            //RequestBody body = RequestBody.create(MediaType.parse("text/plain"), vehicleId);
+            ServerApi.getApi().getMenuesItems(getString(R.string.stk), getString(R.string.php), vehicleId).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String command = response.body().string();
+                        Toast.makeText(MainActivity.this, command, Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(MainActivity.this, "onResponse error", Toast.LENGTH_LONG).show();
+                    }
+                }
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Toast.makeText(MainActivity.this, "onFailure", Toast.LENGTH_LONG).show();
+                }
+            });
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this, "click error", Toast.LENGTH_LONG).show();
+        }
     }
 }
