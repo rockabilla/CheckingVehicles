@@ -1,5 +1,9 @@
 package com.piteravto.rockabilla.checkingvehicles.api;
 
+import com.piteravto.rockabilla.checkingvehicles.structure.MenuItem;
+
+import java.util.List;
+
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -16,7 +20,7 @@ import retrofit2.http.Query;
 public interface ServerApiInterface {
 
     @GET("{directory}/{command}")
-    Call<ResponseBody> getMenuesItems(@Path("directory") String directory, @Path("command") String command, @Query("vehicleid") String vehicleId);
+    Call<List<MenuItem>> getMenuesItems(@Path("directory") String directory, @Path("command") String command, @Query("vehicleid") String vehicleId);
 
     @POST("{directory}/{command}")
     Call<ResponseBody> getMenuesItems2(@Path("directory") String directory, @Path("command") String command, @Body RequestBody body);

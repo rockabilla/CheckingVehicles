@@ -10,9 +10,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.piteravto.rockabilla.checkingvehicles.api.ServerApi;
+import com.piteravto.rockabilla.checkingvehicles.structure.MenuItem;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -47,18 +50,19 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, vehicleId, Toast.LENGTH_LONG).show();
         try {
             //RequestBody body = RequestBody.create(MediaType.parse("text/plain"), vehicleId);
-            ServerApi.getApi().getMenuesItems(getString(R.string.stk), getString(R.string.php), vehicleId).enqueue(new Callback<ResponseBody>() {
+            ServerApi.getApi().getMenuesItems(getString(R.string.stk), getString(R.string.php), vehicleId).enqueue(new Callback<List<MenuItem>>() {
                 @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
                     try {
-                        String command = response.body().string();
-                        Toast.makeText(MainActivity.this, command, Toast.LENGTH_LONG).show();
+                        List<MenuItem> menuItemList = new ArrayList<MenuItem>();
+                        menuItemList.addAll(response.body());
+                        Toast.makeText(MainActivity.this, menuItemList.size() + " " + menuItemList.get(0).toString(), Toast.LENGTH_LONG).show();
                     } catch (Exception e) {
                         Toast.makeText(MainActivity.this, "onResponse error", Toast.LENGTH_LONG).show();
                     }
                 }
                 @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                public void onFailure(Call<List<MenuItem>> call, Throwable t) {
                     Toast.makeText(MainActivity.this, "onFailure", Toast.LENGTH_LONG).show();
                 }
             });
