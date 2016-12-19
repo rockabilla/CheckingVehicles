@@ -25,13 +25,19 @@ public class ItemListActivity extends Activity {
         try {
             String[] menuItemsName = getIntent().getExtras().getStringArray("menuItemNameList");
             int[] menuItemsValues =  getIntent().getExtras().getIntArray("menuItemValueList");
-            if (menuItemsName!=null) {
-                selection = (TextView) findViewById(R.id.textView1);
+            if (menuItemsName!=null && menuItemsValues!=null) {
+
                 choiceList = (ListView) findViewById(R.id.listView1);
+
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                         android.R.layout.simple_list_item_multiple_choice, menuItemsName);
                 // choiceList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
                 choiceList.setAdapter(adapter);
+
+                for (int i = 0; i<menuItemsValues.length; i++)
+                {
+                    choiceList.setItemChecked(i, menuItemsValues[i] == 1);
+                }
             }
             else
             {
