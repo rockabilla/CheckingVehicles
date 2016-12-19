@@ -1,5 +1,6 @@
 package com.piteravto.rockabilla.checkingvehicles;
 
+import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -57,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
                         List<MenuItem> menuItemList = new ArrayList<MenuItem>();
                         menuItemList.addAll(response.body());
                         Toast.makeText(MainActivity.this, menuItemList.size() + " " + menuItemList.get(0).toString(), Toast.LENGTH_LONG).show();
+
+                        Intent intent = new Intent(MainActivity.this, ItemListActivity.class);
+                        startActivity(intent);
+
                     } catch (Exception e) {
                         Toast.makeText(MainActivity.this, "onResponse error", Toast.LENGTH_LONG).show();
                     }
