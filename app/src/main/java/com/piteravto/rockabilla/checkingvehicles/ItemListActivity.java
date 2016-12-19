@@ -7,7 +7,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.piteravto.rockabilla.checkingvehicles.structure.MenuItem;
 
 /**
  * Created by MishustinAI on 19.12.2016.
@@ -30,8 +29,8 @@ public class ItemListActivity extends Activity {
                 choiceList = (ListView) findViewById(R.id.listView1);
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                        android.R.layout.simple_list_item_multiple_choice, menuItemsName);
-                // choiceList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+                        R.layout.list_item, menuItemsName);
+
                 choiceList.setAdapter(adapter);
 
                 for (int i = 0; i<menuItemsValues.length; i++)

@@ -3,4 +3,6 @@
     <string name="vehicle_id_edit_text">Введите гаражный №</string>
     <string name="clear_button">Очистить</string>
     <string name="continue_button">Готово</string>
+    <string name="done_button">Готово</string>
+    <string name="photo_button">Фото</string>
 </resources>

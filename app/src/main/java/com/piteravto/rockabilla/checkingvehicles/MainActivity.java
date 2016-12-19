@@ -1,7 +1,6 @@
 package com.piteravto.rockabilla.checkingvehicles;
 
 import android.content.Intent;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -13,14 +12,9 @@ import android.widget.Toast;
 import com.piteravto.rockabilla.checkingvehicles.api.ServerApi;
 import com.piteravto.rockabilla.checkingvehicles.structure.MenuItem;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

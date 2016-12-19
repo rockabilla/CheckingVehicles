@@ -4,11 +4,47 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+    <Button
+        android:id="@+id/button_photo"
+
+        android:text="@string/photo_button"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/photo_button"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        />
+
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:choiceMode="multipleChoice" >
     </ListView>
+
+    <Button
+        android:id="@+id/button_done"
+
+        android:text="@string/done_button"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_weight="0"
+        android:background="@drawable/done_button"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        />
+
+
 
 </LinearLayout>
