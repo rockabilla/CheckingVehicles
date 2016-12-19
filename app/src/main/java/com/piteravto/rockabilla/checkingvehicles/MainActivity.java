@@ -60,6 +60,26 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, menuItemList.size() + " " + menuItemList.get(0).toString(), Toast.LENGTH_LONG).show();
 
                         Intent intent = new Intent(MainActivity.this, ItemListActivity.class);
+
+                        String[] menuItemNameList = new String[menuItemList.size()];
+                        int[] menuItemValueList = new int[menuItemList.size()];
+
+                        //Toast.makeText(MainActivity.this, "0", Toast.LENGTH_LONG).show();
+                        int i = 0;
+                        for(MenuItem menuItem : menuItemList)
+                        {
+                            //Toast.makeText(MainActivity.this, "1", Toast.LENGTH_LONG).show();
+                            menuItemNameList[i] = menuItem.getName();
+                            menuItemValueList[i] = menuItem.getValue();
+                            i++;
+                        }
+                        //Toast.makeText(MainActivity.this, menuItemNameList.size(), Toast.LENGTH_LONG).show();
+
+
+
+                        intent.putExtra("menuItemNameList", menuItemNameList);
+                        intent.putExtra("menuItemValueList", menuItemValueList);
+
                         startActivity(intent);
 
                     } catch (Exception e) {
