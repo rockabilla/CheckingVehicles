@@ -2,5 +2,6 @@
 <resources>
     <string name="server_name">http://tabus.piteravto.ru/</string>
     <string name="stk">stk</string>
-    <string name="php">stk3.php</string>
+    <string name="get_menu_items">stk3.php</string>
+    <string name="upload_image">photo.php</string>
 </resources>

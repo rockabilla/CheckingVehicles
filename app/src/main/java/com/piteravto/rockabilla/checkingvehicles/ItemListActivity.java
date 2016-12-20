@@ -13,10 +13,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.piteravto.rockabilla.checkingvehicles.api.ServerApi;
+import com.piteravto.rockabilla.checkingvehicles.api.ServerApiInterface;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -26,6 +37,9 @@ import java.util.Date;
 public class ItemListActivity extends Activity {
     ListView choiceList;
     TextView selection;
+
+    String path;
+    long size;
 
     private static int TAKE_PICTURE = 1;
     private Uri mOutputFileUri;
@@ -76,6 +90,33 @@ public class ItemListActivity extends Activity {
                 // сохраненным по адресу mOutputFileUri
                 //mImageView.setImageURI(mOutputFileUri);
                 Toast.makeText(ItemListActivity.this, "onActivityResult good", Toast.LENGTH_LONG).show();
+
+                File file = new File(mOutputFileUri.getPath());
+                path = file.getPath();
+                size = file.length();
+                RequestBody requestFile =
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+                MultipartBody.Part body =
+                        MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
+
+                String descriptionString = "todo vehicleid";
+
+                RequestBody description =
+                        RequestBody.create(
+                                MediaType.parse("multipart/form-data"), descriptionString);
+                ServerApi.createService(ServerApiInterface.class).uploadImage(getString(R.string.stk), getString(R.string.upload_image), description, body).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Toast.makeText(ItemListActivity.this, "upload success " + mOutputFileUri.getPath(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(ItemListActivity.this, path + " " + size, Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(ItemListActivity.this, "upload failed", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         }
     }

@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, vehicleId, Toast.LENGTH_LONG).show();
         try {
             //RequestBody body = RequestBody.create(MediaType.parse("text/plain"), vehicleId);
-            ServerApi.getApi().getMenuesItems(getString(R.string.stk), getString(R.string.php), vehicleId).enqueue(new Callback<List<MenuItem>>() {
+            ServerApi.getApi().getMenuesItems(getString(R.string.stk), getString(R.string.get_menu_items), vehicleId).enqueue(new Callback<List<MenuItem>>() {
                 @Override
                 public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
                     try {
