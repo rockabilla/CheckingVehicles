@@ -105,7 +105,7 @@ public class ItemListActivity extends Activity {
                 RequestBody description =
                         RequestBody.create(
                                 MediaType.parse("multipart/form-data"), descriptionString);
-                ServerApi.createService(ServerApiInterface.class).uploadImage(getString(R.string.stk), getString(R.string.upload_image), description, body).enqueue(new Callback<ResponseBody>() {
+                ServerApi.getApi().uploadImage(getString(R.string.stk), getString(R.string.upload_image), description, body).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         Toast.makeText(ItemListActivity.this, "upload success " + mOutputFileUri.getPath(), Toast.LENGTH_LONG).show();
