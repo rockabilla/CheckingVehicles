@@ -4,4 +4,5 @@
     <string name="stk">stk</string>
     <string name="get_menu_items">stk3.php</string>
     <string name="upload_image">photo.php</string>
+    <string name="upload_chosen">poster.php</string>
 </resources>

@@ -4,20 +4,18 @@ import android.app.Application;
 
 import com.piteravto.rockabilla.checkingvehicles.R;
 
-import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by MishustinAI on 19.12.2016.
+ * Создаем Application, через который любой другой класс может общатсья с серваком
  */
 
 public class ServerApi extends Application {
 
     private static ServerApiInterface serverApiInterface;
     private Retrofit retrofit;
-
-    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     @Override
     public void onCreate() {
@@ -28,8 +26,6 @@ public class ServerApi extends Application {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        //retrofit.client(httpClient.build()).build();
-
         serverApiInterface = retrofit.create(ServerApiInterface.class); //Создаем объект, при помощи которого будем выполнять запросы
     }
 
@@ -37,12 +33,6 @@ public class ServerApi extends Application {
         return serverApiInterface;
     }
 
-    public static <S> S createService(Class<S> serviceClass) {
-        Retrofit.Builder builder =
-                new Retrofit.Builder()
-                        .baseUrl("http://tabus.piteravto.ru/")
-                        .addConverterFactory(GsonConverterFactory.create());
-        Retrofit retrofit = builder.client(httpClient.build()).build();
-        return retrofit.create(serviceClass);
-    }
+
+
 }

@@ -2,6 +2,7 @@ package com.piteravto.rockabilla.checkingvehicles.api;
 
 import com.piteravto.rockabilla.checkingvehicles.structure.MenuItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -18,6 +19,7 @@ import retrofit2.http.Query;
 
 /**
  * Created by MishustinAI on 19.12.2016.
+ * Описываем команды разговора с серваком
  */
 
 public interface ServerApiInterface {
@@ -30,4 +32,8 @@ public interface ServerApiInterface {
     Call<ResponseBody> uploadImage(@Path("directory") String directory, @Path("command") String command,
                               @Part("description") RequestBody description,
                               @Part MultipartBody.Part file);
+
+    @POST("{directory}/{command}")
+    Call<ResponseBody> uploadChosen(@Path("directory") String directory, @Path("command") String command,
+                                     @Body ArrayList<MenuItem> body);
 }

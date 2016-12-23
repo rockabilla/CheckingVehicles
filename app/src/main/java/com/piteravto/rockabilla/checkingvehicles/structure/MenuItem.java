@@ -2,6 +2,7 @@ package com.piteravto.rockabilla.checkingvehicles.structure;
 
 /**
  * Created by MishustinAI on 19.12.2016.
+ * Один пункт меню, имя - отмечен или нет
  */
 
 public class MenuItem{
@@ -11,10 +12,6 @@ public class MenuItem{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
     }
 
     public String getName() {

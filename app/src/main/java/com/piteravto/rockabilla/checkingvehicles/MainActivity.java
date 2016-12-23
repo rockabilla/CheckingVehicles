@@ -21,6 +21,8 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    private String vehicleId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickContinueButton(View view) {
         EditText editText = (EditText) findViewById(R.id.vehicle_id);
-        String vehicleId = editText.getText().toString();
+        vehicleId = editText.getText().toString();
         Toast.makeText(MainActivity.this, vehicleId, Toast.LENGTH_LONG).show();
         try {
             //RequestBody body = RequestBody.create(MediaType.parse("text/plain"), vehicleId);
@@ -49,9 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
                     try {
-                        List<MenuItem> menuItemList = new ArrayList<MenuItem>();
+                        List<MenuItem> menuItemList = new ArrayList<>();
                         menuItemList.addAll(response.body());
-                        Toast.makeText(MainActivity.this, menuItemList.size() + " " + menuItemList.get(0).toString(), Toast.LENGTH_LONG).show();
 
                         Intent intent = new Intent(MainActivity.this, ItemListActivity.class);
 
@@ -73,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
 
                         intent.putExtra("menuItemNameList", menuItemNameList);
                         intent.putExtra("menuItemValueList", menuItemValueList);
+                        intent.putExtra("vehicleId", vehicleId);
+
 
                         startActivity(intent);
 
