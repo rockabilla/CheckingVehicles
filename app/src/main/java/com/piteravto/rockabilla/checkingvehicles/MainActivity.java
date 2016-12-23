@@ -80,16 +80,16 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
 
                     } catch (Exception e) {
-                        Toast.makeText(MainActivity.this, "onResponse error", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Ошибка", Toast.LENGTH_LONG).show();
                     }
                 }
                 @Override
                 public void onFailure(Call<List<MenuItem>> call, Throwable t) {
-                    Toast.makeText(MainActivity.this, "onFailure", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Ошибка соединения, попробуйте еще раз", Toast.LENGTH_LONG).show();
                 }
             });
         } catch (Exception e) {
-            Toast.makeText(MainActivity.this, "click error", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "Ошибка", Toast.LENGTH_LONG).show();
         }
     }
 }

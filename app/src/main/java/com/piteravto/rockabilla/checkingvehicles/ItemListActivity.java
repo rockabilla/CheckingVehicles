@@ -2,6 +2,8 @@ package com.piteravto.rockabilla.checkingvehicles;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,7 +17,11 @@ import android.widget.Toast;
 import com.piteravto.rockabilla.checkingvehicles.api.ServerApi;
 import com.piteravto.rockabilla.checkingvehicles.structure.MenuItem;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -85,7 +91,7 @@ public class ItemListActivity extends Activity {
                 File file = new File(mOutputFileUri.getPath());
 
                 RequestBody requestFile =
-                        RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                        RequestBody.create(MediaType.parse("multipart/form-data"), decodeFile(file));
 
                 MultipartBody.Part body =
                         MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
@@ -98,6 +104,7 @@ public class ItemListActivity extends Activity {
                 ServerApi.getApi().uploadImage(getString(R.string.stk), getString(R.string.upload_image), description, body).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Toast.makeText(ItemListActivity.this, "send", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -159,5 +166,49 @@ public class ItemListActivity extends Activity {
             }
         });
 
+    }
+
+    // Decodes image and scales it to reduce memory consumption
+    private File decodeFile(File f) {
+        try {
+            // Decode image size
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(new FileInputStream(f), null, o);
+
+            // The new size we want to scale to
+            final int REQUIRED_SIZE=1200;
+
+            // Find the correct scale value. It should be the power of 2.
+            // rockabilla сделали константой, пока так устраивает
+            int scale = 2;
+            //while(o.outWidth / scale / 2 >= REQUIRED_SIZE &&
+            //        o.outHeight / scale / 2 >= REQUIRED_SIZE) {
+            //    scale *= 2;
+            //}
+
+            // Decode with inSampleSize
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = scale;
+            Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
+
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 65 /*ignored for PNG*/, bos);
+            byte[] bitmapdata = bos.toByteArray();
+
+//write the bytes in file
+            FileOutputStream fos = new FileOutputStream(f);
+            fos.write(bitmapdata);
+            fos.flush();
+            fos.close();
+            return f;
+        } catch (FileNotFoundException e) {
+
+        }
+        catch (IOException e)
+        {
+
+        }
+        return null;
     }
 }
